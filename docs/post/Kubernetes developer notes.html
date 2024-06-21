@@ -23,28 +23,14 @@ kubectl get services
 kubectl apply -f azure-vote.yaml
 kubectl get service azure-vote-front --watch
 kubectl get secret
-kubectl expose deployment eiot-backend --type=LoadBalancer --name=my-service
+kubectl expose deployment deployment-name --type=LoadBalancer --name=my-service-name
  https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
  
 kubectl get secrets     
 kubectl describe secret/db-credentials-c2hd54k784     
  
- 
- 
-Apply file:
-apiVersion:kustomize.config.k8s.io/v1beta1
-kind:Kustomization
-generatorOptions:
-disableNameSuffixHash:true
-labels:
-foo:bar
-secretGenerator:
--name:eiot-dev-credentials
-literals:
--JWT_SECRET=123
-kubectl apply -k .
- 
- 
+
+
 access the pod’s bash shell:
 kubectl exec -it [pod] -- /bin/bash
  
@@ -54,7 +40,7 @@ kubectl logs -f  pinot-zookeeper-0 --namespace=pinot-quickstart
  
 Confimap:
 kubectl get configmaps
-kubectl describe configmaps eiot-dev-config
+kubectl describe configmaps configmap-name
  
 # Create the configmap from file
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/
@@ -80,26 +66,18 @@ kubectl create ns pinot
 Add domain dns name:
 (add it under annotations tag)con
  
-service.beta.kubernetes.io/azure-dns-label-name: seveniotbackenddev
+service.beta.kubernetes.io/azure-dns-label-name: label_name
+ 
+ 
+ 
+kubectl apply -k .  --namespace=namespacename
+kubectl logs -f <pod name> --namespace=namespacename
+kubectl get pod <pod name> -n namespacename -o yaml | kubectl replace --force -f -
  
  
  
  
- 
-Latest eiot backend env values:
- 
-related kubectl  command:
- 
-seveniotbackendtest
- 
-kubectl apply -k .  --namespace=backend-app-node
-kubectl logs -f <pod name> --namespace=backend-node
-kubectl get pod <pod name> -n backend-node -o yaml | kubectl replace --force -f -
- 
- 
- 
- 
-kubectl describe configmaps eiot-dev-config --namespace=backend-node
+kubectl describe configmaps confimapname --namespace=namespacename
  
  
  
@@ -121,13 +99,13 @@ Caddy ingress
 https://markheath.net/post/simple-aks-https-with-caddy
 kubectl create namespace caddy-system
 sudo kubectl apply -f mycaddy.yaml 
-kubectl apply -f caddyingress_iot-api-dev.yaml
-kubectl create secret  tls mycerts --key ./tls.key --cert ./tls.crt -n backend-app-node
+kubectl apply -f caddyingress_hostname.yaml
+kubectl create secret  tls mycerts --key ./tls.key --cert ./tls.crt -n servicenamespacename
 
 Deleting all pods and ingress then add ingress with certs.
 
 Fix error:
-Error from server (InternalError): error when creating 'caddyingress_iot-api-dev.yaml': Internal error occurred: failed calling webhook 'validate.nginx.ingress.kubernetes.io': failed to call webhook: Post '[https://ingress-nginx-controller-admission.ingress-basic.svc:443/networking/v1/ingresses?timeout=10s](https://ingress-nginx-controller-admission.ingress-basic.svc/networking/v1/ingresses?timeout=10s)': service 'ingress-nginx-controller-admission' not found
+failed calling webhook 'validate.nginx.ingress.kubernetes.io': failed to call webhook: Post '[https://ingress-nginx-controller-admission.ingress-basic.svc:443/networking/v1/ingresses?timeout=10s](https://ingress-nginx-controller-admission.ingress-basic.svc/networking/v1/ingresses?timeout=10s)': service 'ingress-nginx-controller-admission' not found
 :
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
@@ -168,28 +146,14 @@ kubectl get services
 kubectl apply -f azure-vote.yaml
 kubectl get service azure-vote-front --watch
 kubectl get secret
-kubectl expose deployment eiot-backend --type=LoadBalancer --name=my-service
+kubectl expose deployment deployment-name --type=LoadBalancer --name=my-service-name
  https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
  
 kubectl get secrets     
 kubectl describe secret/db-credentials-c2hd54k784     
  
- 
- 
-Apply file:
-apiVersion:kustomize.config.k8s.io/v1beta1
-kind:Kustomization
-generatorOptions:
-disableNameSuffixHash:true
-labels:
-foo:bar
-secretGenerator:
--name:eiot-dev-credentials
-literals:
--JWT_SECRET=123
-kubectl apply -k .
- 
- 
+
+
 access the pod’s bash shell:
 kubectl exec -it [pod] -- /bin/bash
  
@@ -199,7 +163,7 @@ kubectl logs -f  pinot-zookeeper-0 --namespace=pinot-quickstart
  
 Confimap:
 kubectl get configmaps
-kubectl describe configmaps eiot-dev-config
+kubectl describe configmaps configmap-name
  
 # Create the configmap from file
 kubectl create configmap game-config --from-file=configure-pod-container/configmap/
@@ -225,26 +189,18 @@ kubectl create ns pinot
 Add domain dns name:
 (add it under annotations tag)con
  
-service.beta.kubernetes.io/azure-dns-label-name: seveniotbackenddev
+service.beta.kubernetes.io/azure-dns-label-name: label_name
+ 
+ 
+ 
+kubectl apply -k .  --namespace=namespacename
+kubectl logs -f <pod name> --namespace=namespacename
+kubectl get pod <pod name> -n namespacename -o yaml | kubectl replace --force -f -
  
  
  
  
- 
-Latest eiot backend env values:
- 
-related kubectl  command:
- 
-seveniotbackendtest
- 
-kubectl apply -k .  --namespace=backend-app-node
-kubectl logs -f <pod name> --namespace=backend-node
-kubectl get pod <pod name> -n backend-node -o yaml | kubectl replace --force -f -
- 
- 
- 
- 
-kubectl describe configmaps eiot-dev-config --namespace=backend-node
+kubectl describe configmaps confimapname --namespace=namespacename
  
  
  
@@ -266,13 +222,13 @@ Caddy ingress
 https://markheath.net/post/simple-aks-https-with-caddy
 kubectl create namespace caddy-system
 sudo kubectl apply -f mycaddy.yaml 
-kubectl apply -f caddyingress_iot-api-dev.yaml
-kubectl create secret  tls mycerts --key ./tls.key --cert ./tls.crt -n backend-app-node
+kubectl apply -f caddyingress_hostname.yaml
+kubectl create secret  tls mycerts --key ./tls.key --cert ./tls.crt -n servicenamespacename
 
 Deleting all pods and ingress then add ingress with certs.
 
 Fix error:
-Error from server (InternalError): error when creating 'caddyingress_iot-api-dev.yaml': Internal error occurred: failed calling webhook 'validate.nginx.ingress.kubernetes.io': failed to call webhook: Post '[https://ingress-nginx-controller-admission.ingress-basic.svc:443/networking/v1/ingresses?timeout=10s](https://ingress-nginx-controller-admission.ingress-basic.svc/networking/v1/ingresses?timeout=10s)': service 'ingress-nginx-controller-admission' not found
+failed calling webhook 'validate.nginx.ingress.kubernetes.io': failed to call webhook: Post '[https://ingress-nginx-controller-admission.ingress-basic.svc:443/networking/v1/ingresses?timeout=10s](https://ingress-nginx-controller-admission.ingress-basic.svc/networking/v1/ingresses?timeout=10s)': service 'ingress-nginx-controller-admission' not found
 :
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
 
@@ -366,29 +322,17 @@ kubectl get services<br>
 kubectl apply -f azure-vote.yaml<br>
 kubectl get service azure-vote-front --watch<br>
 kubectl get secret<br>
-kubectl expose deployment eiot-backend --type=LoadBalancer --name=my-service<br>
+kubectl expose deployment deployment-name --type=LoadBalancer --name=my-service-name<br>
 <a href="https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/" rel="nofollow">https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/</a></p>
 <p>kubectl get secrets<br>
 kubectl describe secret/db-credentials-c2hd54k784</p>
-<p>Apply file:<br>
-apiVersion:kustomize.config.k8s.io/v1beta1<br>
-kind:Kustomization<br>
-generatorOptions:<br>
-disableNameSuffixHash:true<br>
-labels:<br>
-foo:bar<br>
-secretGenerator:<br>
--name:eiot-dev-credentials<br>
-literals:<br>
--JWT_SECRET=123<br>
-kubectl apply -k .</p>
 <p>access the pod’s bash shell:<br>
 kubectl exec -it [pod] -- /bin/bash</p>
 <p>Get pod's logs:<br>
 kubectl logs -f  pinot-zookeeper-0 --namespace=pinot-quickstart</p>
 <p>Confimap:<br>
 kubectl get configmaps<br>
-kubectl describe configmaps eiot-dev-config</p>
+kubectl describe configmaps configmap-name</p>
 <h1>Create the configmap from file</h1>
 <p>kubectl create configmap game-config --from-file=configure-pod-container/configmap/<br>
 Apply configmap yml:<br>
@@ -404,14 +348,11 @@ kubectl get pod pinot-controller-0 -n pinot-quickstart -o yaml | kubectl replace
 kubectl create ns pinot</p>
 <p>Add domain dns name:<br>
 (add it under annotations tag)con</p>
-<p>service.beta.kubernetes.io/azure-dns-label-name: seveniotbackenddev</p>
-<p>Latest eiot backend env values:</p>
-<p>related kubectl  command:</p>
-<p>seveniotbackendtest</p>
-<p>kubectl apply -k .  --namespace=backend-app-node<br>
-kubectl logs -f  --namespace=backend-node<br>
-kubectl get pod  -n backend-node -o yaml | kubectl replace --force -f -</p>
-<p>kubectl describe configmaps eiot-dev-config --namespace=backend-node</p>
+<p>service.beta.kubernetes.io/azure-dns-label-name: label_name</p>
+<p>kubectl apply -k .  --namespace=namespacename<br>
+kubectl logs -f  --namespace=namespacename<br>
+kubectl get pod  -n namespacename -o yaml | kubectl replace --force -f -</p>
+<p>kubectl describe configmaps confimapname --namespace=namespacename</p>
 <p>kubectl delete pod -n kube-system  -l k8s-app=kube-dns</p>
 <p>Create tls lincese</p>
 <p>openssl genrsa -out tls.key 2048<br>
@@ -423,11 +364,11 @@ openssl x509 -req -days 365 -in tls.csr -signkey tls.key -out tls.crt</p>
 <a href="https://markheath.net/post/simple-aks-https-with-caddy" rel="nofollow">https://markheath.net/post/simple-aks-https-with-caddy</a><br>
 kubectl create namespace caddy-system<br>
 sudo kubectl apply -f mycaddy.yaml<br>
-kubectl apply -f caddyingress_iot-api-dev.yaml<br>
-kubectl create secret  tls mycerts --key ./tls.key --cert ./tls.crt -n backend-app-node</p>
+kubectl apply -f caddyingress_hostname.yaml<br>
+kubectl create secret  tls mycerts --key ./tls.key --cert ./tls.crt -n servicenamespacename</p>
 <p>Deleting all pods and ingress then add ingress with certs.</p>
 <p>Fix error:<br>
-Error from server (InternalError): error when creating "caddyingress_iot-api-dev.yaml": Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": failed to call webhook: Post "<a href="https://ingress-nginx-controller-admission.ingress-basic.svc/networking/v1/ingresses?timeout=10s" rel="nofollow">https://ingress-nginx-controller-admission.ingress-basic.svc:443/networking/v1/ingresses?timeout=10s</a>": service "ingress-nginx-controller-admission" not found<br>
+failed calling webhook "validate.nginx.ingress.kubernetes.io": failed to call webhook: Post "<a href="https://ingress-nginx-controller-admission.ingress-basic.svc/networking/v1/ingresses?timeout=10s" rel="nofollow">https://ingress-nginx-controller-admission.ingress-basic.svc:443/networking/v1/ingresses?timeout=10s</a>": service "ingress-nginx-controller-admission" not found<br>
 :<br>
 kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission</p>
 <p>PFX file to crt file<br>
