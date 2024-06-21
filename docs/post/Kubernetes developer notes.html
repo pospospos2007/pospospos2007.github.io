@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="en">
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -10,250 +10,10 @@
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
 <meta name="description" content="Cheetsheet
-https://kubernetes.io/docs/reference/kubectl/cheatsheet/ 
- 
- kubectl get nodes -o wide
-
-Login Azure cluster
-az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
- 
- 
-kubectl get nodes
-kubectl get services  
-kubectl apply -f azure-vote.yaml
-kubectl get service azure-vote-front --watch
-kubectl get secret
-kubectl expose deployment deployment-name --type=LoadBalancer --name=my-service-name
- https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
- 
-kubectl get secrets     
-kubectl describe secret/db-credentials-c2hd54k784     
- 
-
-
-access the pod’s bash shell:
-kubectl exec -it [pod] -- /bin/bash
- 
-Get pod's logs:
-kubectl logs -f  pinot-zookeeper-0 --namespace=pinot-quickstart 
- 
- 
-Confimap:
-kubectl get configmaps
-kubectl describe configmaps configmap-name
- 
-# Create the configmap from file
-kubectl create configmap game-config --from-file=configure-pod-container/configmap/
-Apply configmap yml:
- kubectl apply -k .
- 
- 
-kubectl apply -f azure-vote.yaml
- 
-kubectl get pods --namespace=<insert-namespace-name-here>
- 
-Fixing terminating status
-kubectl patch pv jhooq-pv -p '{'metadata':{'finalizers':null}}'
-kubectl patch pvc jhooq-pv-claim -p '{'metadata':{'finalizers':null}}'
- 
- 
-restart the  pod:
-kubectl get pod pinot-controller-0 -n pinot-quickstart -o yaml | kubectl replace --force -f -
- 
-Create namespace
-kubectl create ns pinot  
- 
-Add domain dns name:
-(add it under annotations tag)con
- 
-service.beta.kubernetes.io/azure-dns-label-name: label_name
- 
- 
- 
-kubectl apply -k .  --namespace=namespacename
-kubectl logs -f <pod name> --namespace=namespacename
-kubectl get pod <pod name> -n namespacename -o yaml | kubectl replace --force -f -
- 
- 
- 
- 
-kubectl describe configmaps confimapname --namespace=namespacename
- 
- 
- 
- 
- 
-kubectl delete pod -n kube-system  -l k8s-app=kube-dns
- 
- 
-Create tls lincese
- 
-openssl genrsa -out tls.key 2048
-openssl req -new -key tls.key -out tls.csr
-openssl x509 -req -days 365 -in tls.csr -signkey tls.key -out tls.crt
- 
-Install ingress
-https://platform9.com/learn/v1.0/tutorials/nginix-controller-via-yaml
- 
-Caddy ingress
-https://markheath.net/post/simple-aks-https-with-caddy
-kubectl create namespace caddy-system
-sudo kubectl apply -f mycaddy.yaml 
-kubectl apply -f caddyingress_hostname.yaml
-kubectl create secret  tls mycerts --key ./tls.key --cert ./tls.crt -n servicenamespacename
-
-Deleting all pods and ingress then add ingress with certs.
-
-Fix error:
-failed calling webhook 'validate.nginx.ingress.kubernetes.io': failed to call webhook: Post '[https://ingress-nginx-controller-admission.ingress-basic.svc:443/networking/v1/ingresses?timeout=10s](https://ingress-nginx-controller-admission.ingress-basic.svc/networking/v1/ingresses?timeout=10s)': service 'ingress-nginx-controller-admission' not found
-:
-kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
-
-
-PFX file to crt file
-https://ibm.com/docs/en/arl/9.7?topic=certification-extracting-certificate-keys-from-pfx-file
-
-
-Spark setup
-https://testdriven.io/blog/deploying-spark-on-kubernetes/
-
-How to check space left of pod
-kubectl -n pinot exec pinot-zookeeper-0 -- df -ah
-
-
-
-Remove table from pinot with name like new
-Change the logging level for docker thingstack
- 
-Get docker log file path - docker inspect --format='{{.LogPath}}' $INSTANCE_ID
-Command to clear docker log - truncate -s 0 /home/document/path
-
-
-How to run command inside the kubenetetes pod
- kubectl exec -it spark-master-59dd99bf6-j46p9 -- /bin/bash -c 'ls'。">
+https://kubernetes.">
 <meta property="og:title" content="Kubernetes developer notes">
 <meta property="og:description" content="Cheetsheet
-https://kubernetes.io/docs/reference/kubectl/cheatsheet/ 
- 
- kubectl get nodes -o wide
-
-Login Azure cluster
-az aks get-credentials --resource-group myResourceGroup --name myAKSCluster
- 
- 
-kubectl get nodes
-kubectl get services  
-kubectl apply -f azure-vote.yaml
-kubectl get service azure-vote-front --watch
-kubectl get secret
-kubectl expose deployment deployment-name --type=LoadBalancer --name=my-service-name
- https://kubernetes.io/docs/tutorials/stateless-application/expose-external-ip-address/
- 
-kubectl get secrets     
-kubectl describe secret/db-credentials-c2hd54k784     
- 
-
-
-access the pod’s bash shell:
-kubectl exec -it [pod] -- /bin/bash
- 
-Get pod's logs:
-kubectl logs -f  pinot-zookeeper-0 --namespace=pinot-quickstart 
- 
- 
-Confimap:
-kubectl get configmaps
-kubectl describe configmaps configmap-name
- 
-# Create the configmap from file
-kubectl create configmap game-config --from-file=configure-pod-container/configmap/
-Apply configmap yml:
- kubectl apply -k .
- 
- 
-kubectl apply -f azure-vote.yaml
- 
-kubectl get pods --namespace=<insert-namespace-name-here>
- 
-Fixing terminating status
-kubectl patch pv jhooq-pv -p '{'metadata':{'finalizers':null}}'
-kubectl patch pvc jhooq-pv-claim -p '{'metadata':{'finalizers':null}}'
- 
- 
-restart the  pod:
-kubectl get pod pinot-controller-0 -n pinot-quickstart -o yaml | kubectl replace --force -f -
- 
-Create namespace
-kubectl create ns pinot  
- 
-Add domain dns name:
-(add it under annotations tag)con
- 
-service.beta.kubernetes.io/azure-dns-label-name: label_name
- 
- 
- 
-kubectl apply -k .  --namespace=namespacename
-kubectl logs -f <pod name> --namespace=namespacename
-kubectl get pod <pod name> -n namespacename -o yaml | kubectl replace --force -f -
- 
- 
- 
- 
-kubectl describe configmaps confimapname --namespace=namespacename
- 
- 
- 
- 
- 
-kubectl delete pod -n kube-system  -l k8s-app=kube-dns
- 
- 
-Create tls lincese
- 
-openssl genrsa -out tls.key 2048
-openssl req -new -key tls.key -out tls.csr
-openssl x509 -req -days 365 -in tls.csr -signkey tls.key -out tls.crt
- 
-Install ingress
-https://platform9.com/learn/v1.0/tutorials/nginix-controller-via-yaml
- 
-Caddy ingress
-https://markheath.net/post/simple-aks-https-with-caddy
-kubectl create namespace caddy-system
-sudo kubectl apply -f mycaddy.yaml 
-kubectl apply -f caddyingress_hostname.yaml
-kubectl create secret  tls mycerts --key ./tls.key --cert ./tls.crt -n servicenamespacename
-
-Deleting all pods and ingress then add ingress with certs.
-
-Fix error:
-failed calling webhook 'validate.nginx.ingress.kubernetes.io': failed to call webhook: Post '[https://ingress-nginx-controller-admission.ingress-basic.svc:443/networking/v1/ingresses?timeout=10s](https://ingress-nginx-controller-admission.ingress-basic.svc/networking/v1/ingresses?timeout=10s)': service 'ingress-nginx-controller-admission' not found
-:
-kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
-
-
-PFX file to crt file
-https://ibm.com/docs/en/arl/9.7?topic=certification-extracting-certificate-keys-from-pfx-file
-
-
-Spark setup
-https://testdriven.io/blog/deploying-spark-on-kubernetes/
-
-How to check space left of pod
-kubectl -n pinot exec pinot-zookeeper-0 -- df -ah
-
-
-
-Remove table from pinot with name like new
-Change the logging level for docker thingstack
- 
-Get docker log file path - docker inspect --format='{{.LogPath}}' $INSTANCE_ID
-Command to clear docker log - truncate -s 0 /home/document/path
-
-
-How to run command inside the kubenetetes pod
- kubectl exec -it spark-master-59dd99bf6-j46p9 -- /bin/bash -c 'ls'。">
+https://kubernetes.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://pospospos2007.github.io/post/Kubernetes%20developer%20notes.html">
 <meta property="og:image" content="https://avatars.githubusercontent.com/u/11675650?v=4">
@@ -290,7 +50,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <div id="header">
 <h1 class="postTitle">Kubernetes developer notes</h1>
 <div class="title-right">
-    <a href="https://pospospos2007.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+    <a href="https://pospospos2007.github.io" id="buttonHome" class="btn btn-invisible circle" title="home">
         <svg class="octicon" width="16" height="16">
             <path id="pathHome" fill-rule="evenodd"></path>
         </svg>
@@ -303,7 +63,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     </a>
     
 
-    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="switch theme">
         <svg class="octicon" width="16" height="16" >
             <path id="themeSwitch" fill-rule="evenodd"></path>
         </svg>
@@ -384,7 +144,7 @@ Command to clear docker log - truncate -s 0 /home/document/path</p>
 <p>How to run command inside the kubenetetes pod<br>
 kubectl exec -it spark-master-59dd99bf6-j46p9 -- /bin/bash -c "ls"</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
-<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">comments</button>
 <div class="comments" id="comments"></div>
 </div>
     <div id="footer">Copyright © <span id="year"></span><a href="https://pospospos2007.github.io"> Albert's Blog </a>
@@ -399,8 +159,8 @@ if(""!=""){
     var diff=now.getTime()-startSite.getTime();
     var diffDay=Math.floor(diff/(1000*60*60*24));
     document.getElementById("year").innerHTML=now.getFullYear();
-    if(""!=""){document.getElementById("runday").innerHTML=" • "+"网站运行"+diffDay+"天"+" • ";}
-    else{document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";}
+    if(""!=""){document.getElementById("runday").innerHTML=" • "+"run "+diffDay+" days"+" • ";}
+    else{document.getElementById("runday").innerHTML="run "+diffDay+" days"+" • ";}
 }
 </script>
 </div>
