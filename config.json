@@ -3,5 +3,6 @@
     "subTitle":"My personal website https://albert6.com",
     "avatarUrl":"https://avatars.githubusercontent.com/u/11675650?v=4",
     "GMEEK_VERSION":"last",
-    "i18n":"EN"
+    "i18n":"EN",
+    "singlePage":["about"]
 }
